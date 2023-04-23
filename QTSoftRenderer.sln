@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32901.82
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01_DrawLine", "01_DrawLine\01_DrawLine.vcxproj", "{9308E125-284B-4C5F-B9AC-27D2B768D557}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9308E125-284B-4C5F-B9AC-27D2B768D557}.Debug|x64.ActiveCfg = Debug|x64
+		{9308E125-284B-4C5F-B9AC-27D2B768D557}.Debug|x64.Build.0 = Debug|x64
+		{9308E125-284B-4C5F-B9AC-27D2B768D557}.Release|x64.ActiveCfg = Release|x64
+		{9308E125-284B-4C5F-B9AC-27D2B768D557}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {595CEB98-D93A-405E-B4BD-FA1C52EFAE0D}
+	EndGlobalSection
+EndGlobal
