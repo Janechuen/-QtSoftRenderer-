@@ -1,4 +1,5 @@
 #include <Mesh.h>
+#include "Mesh.h"
 
 Mesh& Mesh::operator=(const Mesh& msh)
 {
@@ -19,7 +20,7 @@ void Mesh::setIndex(int* i, int count)
 	new(&index)std::vector<unsigned int>(i, i + count);
 }
 
-void Mesh::triangle(vec4& v1, vec4& v2, vec4& v3)
+/*void Mesh::triangle(vec4& v1, vec4& v2, vec4& v3)
 {
 	vertices.resize(3);
 	index.resize(3);
@@ -38,8 +39,9 @@ void Mesh::triangle(vec4& v1, vec4& v2, vec4& v3)
 	index[0] = 0;
 	index[1] = 1;
 	index[2] = 2;
-}
+}*/
 
+//Load OBJ Mesh
 void Mesh::LoadMesh(const std::string filename)
 {
 	std::ifstream in;
@@ -50,61 +52,55 @@ void Mesh::LoadMesh(const std::string filename)
 	{
 		std::getline(in, line);
 		std::istringstream iss(line.c_str());
-		char trash;//trash 是一个临时变量，它被用作占位符，用于丢弃输入流中的字符
-		if (!line.compare(0,2,"v "))//测试含有v字符为顶点位置信息
+		char trash;
+		//判断所在行是否有v 有则为顶点位置
+		if (!line.compare(0,2,"v "))
 		{
-			/*
-			顶点数据格式
-			v -0.500000 -0.500000 0.500000
-			*/
 			iss >> trash;
 			vec3 v;
 			for(int i = 0; i < 3; i++)iss >> v[i];
 			position.push_back(v);//存储顶点
 		}
-		else if(!line.compare(0,3,"vn "))//测试含有vn字符为顶点法线信息
+		//判断所在行是否有vn 有则为法线
+		else if(!line.compare(0,3,"vn "))
 		{
-			/*
-			顶点法线数据格式
-			vn 0.000000 0.000000 1.000000
-			*/
-			iss >> trash >> trash;
+			iss >> trash >> trash;//将vn放入垃圾桶 以便获取正确数据
 			vec3 n;
-			for (int i = 0; i < 3; i++)iss >> n[i];
+			for (int i; i < 3; i++)iss >> n[i];
 			normal.push_back(n);
+
 		}
-		else if(!line.compare(0,3, "vt "))//测试含有vt字符为顶点uv信息
+		//判断所在行是否有vt 有则为uv
+		else if(!line.compare(0,3,"vt "))
 		{
-			/*
-			顶点法线数据格式
-			vt 0.375000 0.000000
-			*/
-			iss >> trash >> trash;// iss>> 跳过字符 这样可以跳过不需要的字符，只提取有用的数据，并将其存储到相应的数据结构中
+			iss >> trash >> trash;//将vt放入垃圾桶 以便获取正确数据
 			vec2 uv;
 			for (int i = 0; i < 2; i++)iss >> uv[i];
-			texcoord.push_back({ uv.x, 1 - uv.y });
+			texcoord.push_back({ uv.x,uv.y });
 		}
-		else if(!line.compare(0,2,"f "))//测试含有f字符为顶点面信息
+		//判断所在行是否有f 有则为三角面信息
+		else if(!line.compare(0,2,"f "))
 		{
-			/*
-			面数据格式（顶点 UV 法线 的索引）
-			f 1/1/1 2/2/2 4/4/3 3/3/4
-			*/
-			int f, t, n;
+			int f, n, t;
 			iss >> trash;
 			int cnt;
-			while (iss>>f>>trash>>t>>trash>>n)//面数据的顶点索引、纹理坐标索引和法线索引依次读取并存储到变量
+			/*
+			f 面数据的格式为 f 1/2/3 其顺序为位置信息 纹理索引 法线信息 
+			*/
+			while (iss>>f>>trash>>t>>trash>>n)
 			{
-				vertexindex.push_back(f);//位置索引
-				textureindex.push_back(t);//纹理索引
-				normalindex.push_back(n);//法线索引
+				//这里--f 是因为模型索引从1开始 而vector索引从0开始
+				p_index.push_back(--f);
+				n_index.push_back(--n);
+				uv_index.push_back(--t);
 				cnt++;
 			}
+			//检测模型是否出现三角面
 			if (3!=cnt)
 			{
-				std::cerr << "ERROR : 模型不支持超过三角面的模型 " << std::endl;
-				return;
+				std::cerr << "ERROR:OBJ 模型只支持加载三角面" << std::endl;
 			}
+			
 		}
 	}
 	return;

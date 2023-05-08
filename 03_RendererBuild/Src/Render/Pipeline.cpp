@@ -22,34 +22,91 @@ void Pipeline::initialize()
     m_shader = new SimpleShader(); //后续添加 默认类型shader
 }
 
-void Pipeline::drawIndex(RenderMode mode)
+V2F Pipeline::VS(Appdata a)
 {
-	//
-	// 开始判断渲染模式
-	// 
+	//遍历顶点 将顶点从本地空间变换到 世界 相机 投影 最后到裁剪空间 屏幕空间
+	V2F VS_Output;
+	mat<4, 4>TransformMatrix = GetTransformMatrix();
+	mat<4, 4>ViewMatrix = GetViewMatrix({ 0,0,-10 }, { 0,0,0 }, { 0,1,0 });
+	double near = 0.3;
+	double far = 50;
+	mat<4, 4>ProjectionMatrix = GetProjectionMatrix((double)width / (double)height, 90 * 3.14 / 180.f, near, far);
+	//顶点着色器循环 会对每个顶点进行基础的MVP处理
+	for (int i = 0; i < a.POSITION.size(); i++)
+	{
+		//MVP变换
+		vec4 VSOutput_Pos = vec4{ a.POSITION[i].x,a.POSITION[i].y,a.POSITION[i].z,1.0 };
+		VSOutput_Pos = TransformMatrix * VSOutput_Pos;//M变换 从模型空间进入世界空间
+		VSOutput_Pos = ViewMatrix * VSOutput_Pos; //V变换 从世界空间进入视口空间
+		VSOutput_Pos = ProjectionMatrix * VSOutput_Pos; //P变换 从视口空间进入视锥裁剪空间
+		VS_Output.position.push_back(VSOutput_Pos);
+		vec4 Cs_Pos = VSOutput_Pos;
+		Cs_Pos = vec4{ Cs_Pos.x / Cs_Pos.w, Cs_Pos.y / Cs_Pos.w, Cs_Pos.z / Cs_Pos.w, Cs_Pos.w };//Perspectivedivide透视除法 xyz/w 进入NDC空间
+		Cs_Pos = vec4{ (width * Cs_Pos.x / 2) + width / 2,(height * Cs_Pos.y / 2) + height / 2 ,0,0 };//viewportmapping视口片换
+		//m_backBuffer->UpdataFrameBuffer(Cs_Pos.x, Cs_Pos.y, vec4{ 1,0,1,1 });
+		VS_Output.screen_position.push_back(Cs_Pos);
+	}
+	return VS_Output;
+}
+
+void Pipeline::FS_Wire(V2F in, Appdata a)
+{
+	for (int i = 0; i < a.P_INDEX.size(); i += 3)//获取模型位置序列
+	{
+		std::vector<vec4> aa = in.screen_position;//检测输出顶点
+		vec4 pointa = in.screen_position[a.P_INDEX[i]];
+		vec4 pointb = in.screen_position[a.P_INDEX[i+1]];
+		vec4 pointc = in.screen_position[a.P_INDEX[i+2]];
+		bresenham2d(pointa, pointb);
+		bresenham2d(pointb, pointc);
+		bresenham2d(pointc, pointa);
+	}
+}
+
+void Pipeline::FS_Fill(V2F in, Appdata a)
+{
+	for (int i = 0; i < a.P_INDEX.size(); i += 3)//获取模型位置序列
+	{
+		std::vector<vec4> aa = in.screen_position;//检测输出顶点
+		vec4 pointa = in.screen_position[a.P_INDEX[i]];
+		vec4 pointb = in.screen_position[a.P_INDEX[i + 1]];
+		vec4 pointc = in.screen_position[a.P_INDEX[i + 2]];
+		Rasterization2d(pointa, pointb, pointc);
+	}
+}
+
+void Pipeline::drawIndex(RenderMode mode, Appdata a)
+{
     //如果序列为空 不执行绘制操作
-    if (m_indices.empty())return;
+	if (a.P_INDEX.empty())return;
 	if (mode==Wire2D)
 	{
-		Vertex v1 = m_vertices[0];
-		Vertex v2 = m_vertices[1];
-		Vertex v3 = m_vertices[2];
-		bresenham2d(v1.Position,v2.Position);
+	//	Vertex v1 = m_vertices[0];
+	//	Vertex v2 = m_vertices[1];
+	//	Vertex v3 = m_vertices[2];
+	//	bresenham2d(v1.Position,v2.Position);
 	}
 	if (mode==Fill2D)
 	{
-		Vertex v1 = m_vertices[0];
-		Vertex v2 = m_vertices[1];
-		Vertex v3 = m_vertices[2];
-		Rasterization2d(v1.Position, v2.Position, v3.Position);
-	}
-	if (mode==Wire2D)
-	{
-
+	//	Vertex v1 = m_vertices[0];
+	//	Vertex v2 = m_vertices[1];
+	//	Vertex v3 = m_vertices[2];
+	//	Rasterization2d(v1.Position, v2.Position, v3.Position);
 	}
 	if (mode==Wire3D)
 	{
-
+		//【顶点着色器】【VERTEX SHADER】
+		V2F vs = VS(a);
+		//【像素着色器】【FRAGMENT SHADER】
+		FS_Wire(vs,a);
+		
+	}
+	if (mode== Fill3D)
+	{
+		//【顶点着色器】【VERTEX SHADER】
+		V2F vs = VS(a);
+		//【像素着色器】【FRAGMENT SHADER】
+		FS_Fill(vs, a);
 	}
 	else
 	{
@@ -72,7 +129,7 @@ void Pipeline::setShaderMode(ShadingMode mode)
     else if(mode==Phong);
 }
 
-void Pipeline::swapBuffer()
+void Pipeline::swapBuffer()//交换buffer
 {
     FrameBuffer* tmp = m_frontBuffer;
     m_frontBuffer = m_backBuffer;
@@ -83,9 +140,9 @@ void Pipeline::swapBuffer()
 //2D 线框光栅化模式
 void Pipeline::bresenham2d(vec4 from, vec4 to)
 {
-	/*int dx = tx - fx, dy = ty - fy;
+	int dx = to.x - from.x, dy = to.y - from.y;
 	int sx = 1, sy = 1;
-	int nowX = fx, nowY = fy;
+	int nowX = from.x, nowY = from.y;
 	if (dx < 0) {
 		sx = -1;
 		dx = -dx;
@@ -94,53 +151,13 @@ void Pipeline::bresenham2d(vec4 from, vec4 to)
 		sy = -1;
 		dy = -dy;
 	}
-*/
 
-	int tx = to.x;
-	int ty = to.y;
-	int fx = from.x;
-	int fy = from.y;
-	int x1, x2, y1, y2;
-	x1 = fx;
-	y1 = fy;
-	x2 = tx;
-	y2 = ty;
-	int dx = abs((x2 - x1));
-	int dy = abs(y2 - y1);
-	int dx2 = (2 * dx);
-	int dy2 = (2 * dy);
-	int e = (-1 * dx);
-	if (dy < dx)
-	{
-		for (int i = x1; i < x2; i++)
-		{
-			//painter.drawPoint(QPoint(i, y1));
-			m_backBuffer->UpdataFrameBuffer(i, y1, vec4{ 1,0,0,1 });
-			e = e + dy2;
-			if (e < 0)//<0.5不满足向上像素绘制的需求
-			{
-				printf("绘制顶点序号:%d x:%d y:%d \r\n", i, i, y1);
-			}
-			else//满足绘制需求
-			{
-				m_backBuffer->UpdataFrameBuffer(i, y1, vec4{ 1,0,0,1 });
-				printf("绘制顶点序号:%d x:%d y:%d \r\n", i, i, y1);
-				y1 = y1 + 1;
-				e = e - dx2;
-			}
-		}
-	}
-
-
-
-	/*vec4 tmp;
 	if (dy <= dx)
 	{
 		int d = 2 * dy - dx;
 		for (int i = 0; i <= dx; ++i)
 		{
-			tmp = lerp(from, to, static_cast<double>(i) / dx);
-			m_backBuffer->UpdataFrameBuffer(nowX, nowY, m_shader->fragmentShader(tmp));
+			m_backBuffer->UpdataFrameBuffer(nowX, nowY, vec4{ 1,0,0,1 });
 			nowX += sx;
 			if (d <= 0)d += 2 * dy;
 			else {
@@ -154,8 +171,7 @@ void Pipeline::bresenham2d(vec4 from, vec4 to)
 		int d = 2 * dx - dy;
 		for (int i = 0; i <= dy; ++i)
 		{
-			tmp = lerp(from, to, static_cast<double>(i) / dy);
-			m_backBuffer->UpdataFrameBuffer(nowX, nowY, m_shader->fragmentShader(tmp));
+			m_backBuffer->UpdataFrameBuffer(nowX, nowY, vec4{ 1,0,0,1 });
 			nowY += sy;
 			if (d < 0)d += 2 * dx;
 			else {
@@ -163,10 +179,10 @@ void Pipeline::bresenham2d(vec4 from, vec4 to)
 				d -= 2 * dy - 2 * dx;
 			}
 		}
-	}*/
+	}
+	
 }
 //2D 光栅化填充遍历
-
 bool Pipeline::barycentric(vec2 p1, vec2 p2, vec2 p3, int x, int y)
 {
 	vec2 P = { x,y };
@@ -197,7 +213,7 @@ void Pipeline::Rasterization2d(vec4 v1,vec4 v2,vec4 v3)
 			{
 				vec2 pos = { i,j };
 				vec3 col = PixelinTriangleColor2d(vec2{ v1.x,v1.y }, vec2{ v2.x,v2.y }, vec2{ v3.x,v3.y }, i, j);
-				m_backBuffer->UpdataFrameBuffer(pos.x, pos.y, vec4{col.x,col.y,col.z,1});
+				m_backBuffer->UpdataFrameBuffer(pos.x, pos.y, vec4{1,1,1,1});
 			}
 		}
 	}
@@ -224,6 +240,10 @@ vec3 Pipeline::PixelinTriangleColor2d(vec2 p1, vec2 p2, vec2 p3, int x, int y)
 	return outcol;
 }
 
+
+#pragma endregion
+
+#pragma region 3D光栅化
 
 #pragma endregion
 

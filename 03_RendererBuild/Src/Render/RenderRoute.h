@@ -3,6 +3,10 @@
 #define RENDERROUTE_H
 #include"QObject"
 #include "pipeline.h"
+#include <string>
+#include <Mesh.h>
+//#include <Appdata.h>
+#include "Appdata.h"
 
 class RenderRoute :public QObject
 {
@@ -15,6 +19,7 @@ public:
 	void stopIt();
 public slots:
 	void loop();
+	Appdata BindRenderingGeometry(Mesh* mesh, std::string f, Pipeline* pipeline);
 private:
 	bool stopped;
 	int width, height, channel;

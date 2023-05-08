@@ -61,9 +61,10 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <StackReserveSize>104857600</StackReserveSize>
+      <AdditionalOptions> /FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>A:\PROJECT_WORKS\VS_PROJECT\NemeSoftRender\03_RendererBuild\Src\Shader;A:\PROJECT_WORKS\VS_PROJECT\NemeSoftRender\03_RendererBuild\Src\Render;A:\PROJECT_WORKS\VS_PROJECT\NemeSoftRender\03_RendererBuild\Src\Mesh;A:\PROJECT_WORKS\VS_PROJECT\NemeSoftRender\03_RendererBuild\Src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Render;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -71,7 +72,7 @@
       <StackReserveSize>104857600</StackReserveSize>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>A:\PROJECT_WORKS\VS_PROJECT\NemeSoftRender\03_RendererBuild\Src\Shader;A:\PROJECT_WORKS\VS_PROJECT\NemeSoftRender\03_RendererBuild\Src\Render;A:\PROJECT_WORKS\VS_PROJECT\NemeSoftRender\03_RendererBuild\Src\Mesh;A:\PROJECT_WORKS\VS_PROJECT\NemeSoftRender\03_RendererBuild\Src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Render;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -107,6 +108,8 @@
     <ClCompile Include="Src\Render\RenderRoute.cpp" />
     <ClCompile Include="Src\Shader\2DShader.cpp" />
     <ClCompile Include="Src\Shader\Shader.cpp" />
+    <ClCompile Include="Src\Texture\Texture.cpp" />
+    <ClCompile Include="Src\Texture\TgaImage.cpp" />
     <QtRcc Include="Renderer.qrc" />
     <QtUic Include="Renderer.ui" />
     <QtMoc Include="Renderer.h" />
@@ -117,17 +120,20 @@
     <ClInclude Include="Src\Core\Core.h" />
     <ClInclude Include="Src\Core\Matrix.h" />
     <ClInclude Include="Src\Core\Vector.h" />
+    <ClInclude Include="Src\Mesh\Appdata.h" />
     <ClInclude Include="Src\Mesh\Mesh.h" />
     <ClInclude Include="Src\Mesh\V2F.h" />
     <ClInclude Include="Src\Mesh\Vertex.h" />
+    <ClInclude Include="Src\Render\Camera.h" />
     <ClInclude Include="Src\Render\FrameBuffer.h" />
     <ClInclude Include="Src\Render\Pipeline.h" />
     <ClInclude Include="Src\Shader\2DShader.h" />
     <ClInclude Include="Src\Shader\FragmentShader.h" />
     <ClInclude Include="Src\Shader\Shader.h" />
-    <ClInclude Include="Src\Shader\ShaderLibray.h" />
+    <ClInclude Include="Src\Core\ShaderLibray.h" />
     <ClInclude Include="Src\Shader\VertexShader.h" />
     <ClInclude Include="Src\Texture\Texture.h" />
+    <ClInclude Include="Src\Texture\TgaImage.h" />
     <QtMoc Include="Src\Render\RenderRoute.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

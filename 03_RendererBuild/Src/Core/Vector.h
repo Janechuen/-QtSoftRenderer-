@@ -49,6 +49,12 @@ template<int n> vec<n> operator/(const vec<n>& j, const double& k)//ÏòÁ¿ †ÎÎ»³ı·
 	return temp;
 }
 
+template<int n1, int n2> vec<n1> proj(const vec<n2>& v) {
+	vec<n1> ret;
+	for (int i = n1; i--; ret[i] = v[i]);
+	return ret;
+}
+
 
 template<>struct vec<2>//ÌØ»¯½á¹¹Ìå ¶şÎ¬ÏòÁ¿
 {
@@ -73,8 +79,8 @@ template<>struct vec<3>//ÌØ»¯½á¹¹Ìå ÈıÎ¬ÏòÁ¿
 template<>struct vec<4>//ÌØ»¯½á¹¹Ìå ÈıÎ¬ÏòÁ¿
 {
 	double x = 0, y = 0, z = 0, w = 0;//ÉèÖÃÈıÎ¬ÏòÁ¿·ÖÁ¿ x y z
-	double& operator[](const int i) { assert(i >= 0 && i < 4); return i ? (3 == i ? w : (1 == i ? y : z)) : x; };
-	double  operator[](const int i)  const { assert(i >= 0 && i < 4); return i ? (3 == i ? w : (1 == i ? y : z)) : x; };
+	double& operator[](const int i) { assert(i >= 0 && i < 4); return i == 0 ? x : (i == 1 ? y : (i == 2 ? z : w)); };
+	double  operator[](const int i)  const { assert(i >= 0 && i < 4); return i == 0 ? x : (i == 1 ? y : (i == 2 ? z : w)); };
 	double norm2() const { return *this * *this; }//ÏòÁ¿µÄÆ½·½
 	double norm()  const { return std::sqrt(norm2()); }//Ä£éL  ÏòÁ¿µÄÆ½·½é_·½
 	vec<4> normalized() { return (*this) / norm(); }//˜ËœÊ»¯ÏòÁ¿ ÏòÁ¿/Ä£éL

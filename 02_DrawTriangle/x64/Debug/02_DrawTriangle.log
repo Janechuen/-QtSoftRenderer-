@@ -1,1 +1,13 @@
-﻿
+﻿  Core.cpp
+  Mesh.cpp
+  _DrawTriangle.cpp
+  main.cpp
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\02_DrawTriangle\_DrawTriangle.cpp(16,13): warning C4838: 从“int”转换到“double”需要收缩转换
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\02_DrawTriangle\_DrawTriangle.cpp(16,15): warning C4838: 从“int”转换到“double”需要收缩转换
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\02_DrawTriangle\_DrawTriangle.cpp(28,13): warning C4838: 从“int”转换到“double”需要收缩转换
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\02_DrawTriangle\_DrawTriangle.cpp(28,15): warning C4838: 从“int”转换到“double”需要收缩转换
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\02_DrawTriangle\_DrawTriangle.cpp(71,18): warning C4838: 从“int”转换到“double”需要收缩转换
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\02_DrawTriangle\_DrawTriangle.cpp(71,20): warning C4838: 从“int”转换到“double”需要收缩转换
+  qrc__DrawTriangle.cpp
+  moc__DrawTriangle.cpp
+  02_DrawTriangle.vcxproj -> A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\x64\Debug\02_DrawTriangle.exe

@@ -64,6 +64,12 @@
     <ClCompile Include="Src\Shader\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Texture\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Texture\TgaImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\Core.h">
@@ -99,13 +105,22 @@
     <ClInclude Include="Src\Shader\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Shader\ShaderLibray.h">
+    <ClInclude Include="Src\Core\ShaderLibray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Shader\VertexShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Texture\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Texture\TgaImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Mesh\Appdata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
