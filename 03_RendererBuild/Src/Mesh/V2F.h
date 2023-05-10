@@ -14,6 +14,7 @@ public:
 	//vec4 color;
 	std::vector <vec4> position;
 	std::vector <vec4> screen_position;
+	std::vector <vec4> view_position;
 	//double oneDivZ;
 
 	//V2F() {}

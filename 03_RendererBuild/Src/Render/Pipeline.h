@@ -12,7 +12,6 @@ FrameBuffer类设置
 #include <Core.h>
 #include <Appdata.h>
 #include <Shader.h>
-#include <2DShader.h>
 #include <cmath>
 #include <algorithm>
 #include <QDebug>
@@ -23,9 +22,10 @@ private:
 	//FrameBuffer 创建
 	////-------------------------------------------//-------------------------------------------
 	int width, height;
-	SimpleShader* m_shader;
-	FrameBuffer* m_frontBuffer;
-	FrameBuffer* m_backBuffer;
+	Shader* m_shader;
+	FrameBuffer* m_frontBuffer;//前向像素画布
+	FrameBuffer* m_backBuffer;//后向像素画布
+	FrameBuffer* m_DepthBuffer;//深度画布
 	//-------------------------------------------//-------------------------------------------
 	//3D模型数据
 	//-------------------------------------------//-------------------------------------------
@@ -45,14 +45,14 @@ private:
 public:
 	Pipeline(int w, int h)
 		:width(w), height(h)
-		, m_shader(nullptr), m_frontBuffer(nullptr)
+		, m_frontBuffer(nullptr)
 		, m_backBuffer(nullptr) {}
 	~Pipeline();
 	enum ShadingMode { Simple, Gouraud, Phong };
-	enum RenderMode { Wire2D,Fill2D,Wire3D,Fill3D};//核心 渲染模式选择
+	enum RenderMode { Wire2D,Fill2D,Wire3D,Fill3D,DEPTH3D};//核心 渲染模式选择
 
 	void initialize();//初始化FrameBuffer
-	void clearBuffer(const vec4 &color , bool depth =false);//清色除屏幕颜
+	void clearBuffer(const vec4 &color);//清色除屏幕颜
 	//设置模型属性
 	void SetPositionBuffer(const std::vector<vec3>& position) { t_position = position; }
 	void SetNormalBuffer(const std::vector<vec3>& normal) { t_normal = normal; }
@@ -66,11 +66,10 @@ public:
 	mat<4, 4> GetTransformMatrix()//3D 模型变换
 	{
 		double time = FF_time();
-		//double s = 0.12;
-		double s = 5;
+		double s = 0.1;
 		vec3 scale = {s,s,s};
-		vec3 tran = { 0,-5,10 };
-		double rotate = 225 * 3.14 / 180.f;
+		vec3 tran = { 0,-5,5};
+		double rotate = 220 * 3.14 / 180.f;
 		mat<4, 4>S = { vec4{scale.x,0,0,0},vec4{0,scale.y,0,0},vec4{0,0,scale.z,0},vec4{0,0,0,1} };//三维缩放矩阵
 		mat<4, 4>R = { vec4{cos(rotate),0,sin(rotate),0},vec4{0,1,0,0},vec4{-sin(rotate),0,cos(rotate),0},vec4{0,0,0,1} };//TODO： 3D旋转矩阵实现 先不搞
 		mat<4, 4>T = { vec4{1,0,0,tran.x},vec4{0,1,0,tran.y},vec4{0,0,1,tran.z},vec4{0,0,0,1} };
@@ -98,15 +97,19 @@ public:
 #pragma endregion
 
 #pragma region 3D渲染-著色器
-	V2F VS(Appdata in);
-	void FS_Wire(V2F in,Appdata a);
-	void FS_Fill(V2F in, Appdata a);
+	V2F VS(Appdata in);//几何阶段
+	void FS_Wire(V2F in,Appdata a);//光栅化阶段 线框模式
+	void FS_Fill(V2F in, Appdata a);//光栅化阶段 正常模式
+	void FS_Depth(V2F in, Appdata a);//光栅化阶段 深度模式
 #pragma endregion
 
+
 #pragma region 3D渲染-光柵化
+	bool BackfaceCulling(vec4 v1, vec4 v2, vec4 v3);//背面剔除方法
 	bool barycentric(vec2 p1, vec2 p2, vec2 p3, int x, int y);
+	vec3 barycentricTriangle(vec2 p1, vec2 p2, vec2 p3, int x, int y);
 	void bresenham2d(vec4 from, vec4 to);//光栅化阶段-三角形遍历-bresenham 画线算法
-	void Rasterization2d(vec4 v1, vec4 v2, vec4 v3);
+	void Rasterization2d(vec4 v1, vec4 v2, vec4 v3,bool DepthMode);
 	vec3 PixelinTriangleColor2d(vec2 p1, vec2 p2, vec2 p3, int x, int y);
 #pragma endregion
 
@@ -114,7 +117,6 @@ public:
 	void drawIndex(RenderMode mode, Appdata a);//绘制核心函数 启动渲染流水线<伪>
 	void swapBuffer();//交换前后缓冲 我们是在backframe进行绘制 绘制完成后会通过次函数前后交换buffer
 	unsigned char* output() { return m_frontBuffer->GetColorBuffer(); }//输出 uchar 指针 渲染循环的FrameOut函数会接收返回数据 
-	
 #pragma endregion
 
 };

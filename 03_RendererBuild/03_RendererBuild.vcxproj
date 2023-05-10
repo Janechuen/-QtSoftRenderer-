@@ -64,7 +64,7 @@
       <AdditionalOptions> /FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Render;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Shader;D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render;D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh;D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -106,7 +106,6 @@
     <ClCompile Include="Src\Render\FrameBuffer.cpp" />
     <ClCompile Include="Src\Render\Pipeline.cpp" />
     <ClCompile Include="Src\Render\RenderRoute.cpp" />
-    <ClCompile Include="Src\Shader\2DShader.cpp" />
     <ClCompile Include="Src\Shader\Shader.cpp" />
     <ClCompile Include="Src\Texture\Texture.cpp" />
     <ClCompile Include="Src\Texture\TgaImage.cpp" />
@@ -117,6 +116,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Concent\Shader\TestShader01.h" />
     <ClInclude Include="Src\Core\Core.h" />
     <ClInclude Include="Src\Core\Matrix.h" />
     <ClInclude Include="Src\Core\Vector.h" />
@@ -127,11 +127,8 @@
     <ClInclude Include="Src\Render\Camera.h" />
     <ClInclude Include="Src\Render\FrameBuffer.h" />
     <ClInclude Include="Src\Render\Pipeline.h" />
-    <ClInclude Include="Src\Shader\2DShader.h" />
-    <ClInclude Include="Src\Shader\FragmentShader.h" />
     <ClInclude Include="Src\Shader\Shader.h" />
     <ClInclude Include="Src\Core\ShaderLibray.h" />
-    <ClInclude Include="Src\Shader\VertexShader.h" />
     <ClInclude Include="Src\Texture\Texture.h" />
     <ClInclude Include="Src\Texture\TgaImage.h" />
     <QtMoc Include="Src\Render\RenderRoute.h" />

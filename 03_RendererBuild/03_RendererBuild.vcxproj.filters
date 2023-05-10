@@ -58,9 +58,6 @@
     <ClCompile Include="Src\Render\RenderRoute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Shader\2DShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Shader\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,19 +93,10 @@
     <ClInclude Include="Src\Render\Pipeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Shader\2DShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Shader\FragmentShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Shader\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\ShaderLibray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Shader\VertexShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Texture\Texture.h">
@@ -121,6 +109,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Concent\Shader\TestShader01.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
