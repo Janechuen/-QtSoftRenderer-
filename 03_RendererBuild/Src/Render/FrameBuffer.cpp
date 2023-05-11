@@ -83,8 +83,6 @@ void FrameBuffer::UpdataDepthBuffer(int x, int y, double z)
 		{
 			Zbuffer[(y * Width + x) * 4 + k] = z;
 		}
-		
-
 	}
 	
 }

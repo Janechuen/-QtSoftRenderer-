@@ -1,12 +1,7 @@
-﻿  Pipeline.cpp
-D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(234,13): warning C4838: 从“int”转换到“double”需要收缩转换
-D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(234,15): warning C4838: 从“int”转换到“double”需要收缩转换
-D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(269,18): warning C4838: 从“int”转换到“double”需要收缩转换
-D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(269,20): warning C4838: 从“int”转换到“double”需要收缩转换
-D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(297,13): warning C4838: 从“int”转换到“double”需要收缩转换
-D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(297,15): warning C4838: 从“int”转换到“double”需要收缩转换
-D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(119): warning C4715: “Pipeline::BackfaceCulling”: 不是所有的控件路径都返回值
+﻿  RenderRoute.cpp
+Camera.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
 FrameBuffer.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
+Geometry.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
 Pipeline.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
 RenderRoute.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
 Shader.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义

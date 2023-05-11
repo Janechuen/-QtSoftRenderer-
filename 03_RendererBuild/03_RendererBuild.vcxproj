@@ -103,7 +103,9 @@
     <ClCompile Include="Src\Core\Core.cpp" />
     <ClCompile Include="Src\Core\Vector.cpp" />
     <ClCompile Include="Src\Mesh\Mesh.cpp" />
+    <ClCompile Include="Src\Render\Camera.cpp" />
     <ClCompile Include="Src\Render\FrameBuffer.cpp" />
+    <ClCompile Include="Src\Render\Geometry.cpp" />
     <ClCompile Include="Src\Render\Pipeline.cpp" />
     <ClCompile Include="Src\Render\RenderRoute.cpp" />
     <ClCompile Include="Src\Shader\Shader.cpp" />
@@ -126,6 +128,7 @@
     <ClInclude Include="Src\Mesh\Vertex.h" />
     <ClInclude Include="Src\Render\Camera.h" />
     <ClInclude Include="Src\Render\FrameBuffer.h" />
+    <ClInclude Include="Src\Render\Geometry.h" />
     <ClInclude Include="Src\Render\Pipeline.h" />
     <ClInclude Include="Src\Shader\Shader.h" />
     <ClInclude Include="Src\Core\ShaderLibray.h" />

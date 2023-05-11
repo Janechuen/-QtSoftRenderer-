@@ -10,11 +10,13 @@ FrameBuffer类设置
 //#define  PIPELINE_H
 #include <FrameBuffer.h>
 #include <Core.h>
+#include "Geometry.h"
 #include <Appdata.h>
 #include <Shader.h>
 #include <cmath>
 #include <algorithm>
 #include <QDebug>
+#include "Camera.h"
 
 class Pipeline
 {
@@ -29,18 +31,26 @@ private:
 	//-------------------------------------------//-------------------------------------------
 	//3D模型数据
 	//-------------------------------------------//-------------------------------------------
-	std::vector<vec3>t_position;
+	Appdata appdata;//几何阶段需要的数据
+	/*std::vector<vec3>t_position;
 	std::vector<vec3>t_normal;
 	std::vector<vec2>t_texcoord;
 	std::vector<int>tp_index;
 	std::vector<int>tn_index;
-	std::vector<int>tuv_index;
+	std::vector<int>tuv_index;*/
 	std::string t_vs;
 	std::string t_fs;
 	//-------------------------------------------//-------------------------------------------
-	//纹理设置
-
-	//Shader设置
+	//矩阵信息
+	//-------------------------------------------//-------------------------------------------
+	vec3 m_translate; 
+	vec3 m_rotate;
+	vec3 m_scale;
+	vec3 m_cameraposition;
+	vec3 m_camerarotate;
+	double m_cameranear;
+	double m_camerafar;
+	double m_fov;
 
 public:
 	Pipeline(int w, int h)
@@ -54,22 +64,21 @@ public:
 	void initialize();//初始化FrameBuffer
 	void clearBuffer(const vec4 &color);//清色除屏幕颜
 	//设置模型属性
-	void SetPositionBuffer(const std::vector<vec3>& position) { t_position = position; }
-	void SetNormalBuffer(const std::vector<vec3>& normal) { t_normal = normal; }
-	void SetTexcoordBuffer(const std::vector<vec2>& texcoord) { t_texcoord = texcoord; }
-	void SetFaceBuffer(const std::vector<int>& p, const std::vector<int>& n, const std::vector<int>& t)
-	{ tp_index = p, tn_index = n, tuv_index = t; }
+	//void SetPositionBuffer(const std::vector<vec3>& position) { t_position = position; }
+	//void SetNormalBuffer(const std::vector<vec3>& normal) { t_normal = normal; }
+	//void SetTexcoordBuffer(const std::vector<vec2>& texcoord) { t_texcoord = texcoord; }
+	//void SetFaceBuffer(const std::vector<int>& p, const std::vector<int>& n, const std::vector<int>& t)
+	//{ tp_index = p, tn_index = n, tuv_index = t; }
 	void SetShader(const std::string vs, const std::string fs) { t_vs = vs, t_fs = fs; }
 	void setShaderMode(ShadingMode mode);
 
 #pragma region 3D渲染-MVP
 	mat<4, 4> GetTransformMatrix()//3D 模型变换
 	{
-		double time = FF_time();
-		double s = 0.1;
-		vec3 scale = {s,s,s};
-		vec3 tran = { 0,-5,5};
-		double rotate = 220 * 3.14 / 180.f;
+		//double time = FF_time();
+		vec3 scale = m_scale;
+		vec3 tran = m_translate;
+		double rotate = m_rotate.x;
 		mat<4, 4>S = { vec4{scale.x,0,0,0},vec4{0,scale.y,0,0},vec4{0,0,scale.z,0},vec4{0,0,0,1} };//三维缩放矩阵
 		mat<4, 4>R = { vec4{cos(rotate),0,sin(rotate),0},vec4{0,1,0,0},vec4{-sin(rotate),0,cos(rotate),0},vec4{0,0,0,1} };//TODO： 3D旋转矩阵实现 先不搞
 		mat<4, 4>T = { vec4{1,0,0,tran.x},vec4{0,1,0,tran.y},vec4{0,0,1,tran.z},vec4{0,0,0,1} };
@@ -103,7 +112,6 @@ public:
 	void FS_Depth(V2F in, Appdata a);//光栅化阶段 深度模式
 #pragma endregion
 
-
 #pragma region 3D渲染-光柵化
 	bool BackfaceCulling(vec4 v1, vec4 v2, vec4 v3);//背面剔除方法
 	bool barycentric(vec2 p1, vec2 p2, vec2 p3, int x, int y);
@@ -114,7 +122,9 @@ public:
 #pragma endregion
 
 #pragma region 3D-渲染管线流程
-	void drawIndex(RenderMode mode, Appdata a);//绘制核心函数 启动渲染流水线<伪>
+	void SetGeometry(Geometry* geo);//设置模型数据 
+	void SetCamera(Camera* cam );
+	void drawIndex(RenderMode mode);//绘制核心函数 启动渲染流水线<伪>
 	void swapBuffer();//交换前后缓冲 我们是在backframe进行绘制 绘制完成后会通过次函数前后交换buffer
 	unsigned char* output() { return m_frontBuffer->GetColorBuffer(); }//输出 uchar 指针 渲染循环的FrameOut函数会接收返回数据 
 #pragma endregion

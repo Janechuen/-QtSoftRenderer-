@@ -28,25 +28,28 @@ V2F Pipeline::VS(Appdata a)
 {
 	//遍历顶点 将顶点从本地空间变换到 世界 相机 投影 最后到裁剪空间 屏幕空间
 	V2F VS_Output;
-	
-	//mat<4, 4>ViewMatrix = GetViewMatrix({ 0,0,-10 }, { 0,0,0 }, { 0,1,0 });
 	double near = 0.3;
 	double far = 50;
-	mat<4, 4>ProjectionMatrix = GetProjectionMatrix((double)width / (double)height, 90 * 3.14 / 180.f, near, far);
+	
 	//顶点着色器循环 会对每个顶点进行基础的MVP处理
 	for (int i = 0; i < a.POSITION.size(); i++)
 	{
-		//MVP变换
+		//M变换  【模型——>世界】 
 		mat<4, 4>TransformMatrix = GetTransformMatrix();
 		vec4 VSOutput_Pos = vec4{ a.POSITION[i].x,a.POSITION[i].y,a.POSITION[i].z,1.0 };
 		VSOutput_Pos = TransformMatrix * VSOutput_Pos;//M变换 从模型空间进入世界空间
-		mat<4, 4>ViewMatrix = GetViewMatrix({ 0,0,-10 }, { VSOutput_Pos.x,VSOutput_Pos.y,VSOutput_Pos.z }, { 0,1,0 });
+		//V变换  【世界——>相机】 
+		mat<4, 4>ViewMatrix = GetViewMatrix(m_camerarotate, { VSOutput_Pos.x,VSOutput_Pos.y,VSOutput_Pos.z }, { 0,1,0 });
 		VSOutput_Pos = ViewMatrix * VSOutput_Pos; //V变换 从世界空间进入视口空间
 		VS_Output.view_position.push_back(VSOutput_Pos);
+		//P变换  【相机——>裁剪】 
+		mat<4, 4>ProjectionMatrix = GetProjectionMatrix((double)width / (double)height, m_fov, m_cameranear, m_camerafar);
 		VSOutput_Pos = ProjectionMatrix * VSOutput_Pos; //P变换 从视口空间进入视锥裁剪空间
 		VS_Output.position.push_back(VSOutput_Pos);
 		vec4 Cs_Pos = VSOutput_Pos;
+		//透视除法  【裁剪——>NDC】
 		Cs_Pos = vec4{ Cs_Pos.x / Cs_Pos.w, Cs_Pos.y / Cs_Pos.w, Cs_Pos.z, Cs_Pos.w };//Perspectivedivide透视除法 xyz/w 进入NDC空间
+		//视口变换  【NDC——>屏幕】
 		Cs_Pos = vec4{ (width * Cs_Pos.x / 2) + width / 2,(height * Cs_Pos.y / 2) + height / 2 ,Cs_Pos.z,Cs_Pos.w };//viewportmapping视口片换
 		VS_Output.screen_position.push_back(Cs_Pos);
 	}
@@ -82,9 +85,7 @@ void Pipeline::FS_Fill(V2F in, Appdata a)
 			Rasterization2d(pointa, pointb, pointc, false);
 		}
 		//Fragment Shader
-
 		//Depth Test
-		 
 	}
 }
 
@@ -118,10 +119,11 @@ bool Pipeline::BackfaceCulling(vec4 v1, vec4 v2, vec4 v3)
 		if (r1 < 0 & r2 < 0 && r3 < 0)return true;
 }
 
-void Pipeline::drawIndex(RenderMode mode, Appdata a)
+void Pipeline::drawIndex(RenderMode mode)
 {
+
     //如果序列为空 不执行绘制操作
-	if (a.P_INDEX.empty())return;
+	//if (a.P_INDEX.empty())return;
 	if (mode==Wire2D)
 	{
 	//	Vertex v1 = m_vertices[0];
@@ -138,18 +140,18 @@ void Pipeline::drawIndex(RenderMode mode, Appdata a)
 	}
 	if (mode==Wire3D)
 	{
-		V2F vs = VS(a);//【顶点着色器】【VERTEX SHADER】
-		FS_Wire(vs,a);//【像素着色器】【FRAGMENT SHADER】
+		V2F vs = VS(appdata);//【顶点着色器】【VERTEX SHADER】
+		FS_Wire(vs, appdata);//【像素着色器】【FRAGMENT SHADER】
 	}
 	if (mode==Fill3D)
 	{
-		V2F vs = VS(a);//【顶点着色器】【VERTEX SHADER】
-		FS_Fill(vs, a);//【像素着色器】【FRAGMENT SHADER】
+		V2F vs = VS(appdata);//【顶点着色器】【VERTEX SHADER】
+		FS_Fill(vs, appdata);//【像素着色器】【FRAGMENT SHADER】
 	}
 	if (mode==DEPTH3D)
 	{
-		V2F vs = VS(a);	//【顶点着色器】【VERTEX SHADER】
-		FS_Depth(vs, a);//【像素着色器】【FRAGMENT SHADER】
+		V2F vs = VS(appdata);	//【顶点着色器】【VERTEX SHADER】
+		FS_Depth(vs, appdata);//【像素着色器】【FRAGMENT SHADER】
 	}
 	else
 	{
@@ -264,30 +266,33 @@ void Pipeline::Rasterization2d(vec4 v1,vec4 v2,vec4 v3, bool DepthMode)
 	{
 		for (int j = miny; j < maxy; ++j)
 		{
-			if (barycentric(vec2{ v1.x,v1.y }, vec2{ v2.x,v2.y }, vec2{ v3.x,v3.y }, i, j))
+			if (i<width&&j<height&&i>0&&j>0)
 			{
-				vec2 pos = { i,j };
-				vec3 barycentricz = barycentricTriangle(vec2{ v1.x,v1.y }, vec2{ v2.x,v2.y }, vec2{ v3.x,v3.y }, i, j);
-				double z = abs(1-(-v1.z/ Zdistance)) * barycentricz.x + abs(1 - (-v2.z / Zdistance)) * barycentricz.y + abs(1 - (-v3.z / Zdistance)) * barycentricz.z;//三角重心重心插值深度
-				if (barycentricz.x > 0|| barycentricz.y > 0|| barycentricz.z > 0)
+				if (barycentric(vec2{ v1.x,v1.y }, vec2{ v2.x,v2.y }, vec2{ v3.x,v3.y }, i, j))
 				{
-					if (z > m_DepthBuffer->GetDepthBuffer(i, j))//深度测试 将当前像素的z值和Zbuffer的z值比较
+					vec2 pos = { i,j };
+					vec3 barycentricz = barycentricTriangle(vec2{ v1.x,v1.y }, vec2{ v2.x,v2.y }, vec2{ v3.x,v3.y }, i, j);
+					double z = abs(1 - (-v1.z / Zdistance)) * barycentricz.x + abs(1 - (-v2.z / Zdistance)) * barycentricz.y + abs(1 - (-v3.z / Zdistance)) * barycentricz.z;//三角重心重心插值深度
+					if (barycentricz.x > 0 || barycentricz.y > 0 || barycentricz.z > 0)
 					{
-						m_DepthBuffer->UpdataDepthBuffer(pos.x, pos.y, z);//更新深度缓存
-						if (DepthMode==true)
+						if (z > m_DepthBuffer->GetDepthBuffer(i, j))//深度测试 将当前像素的z值和Zbuffer的z值比较
 						{
-							m_backBuffer->UpdataFrameBuffer(pos.x, pos.y, vec4{ z,z,z ,1 });//绘制深度信息
+							m_DepthBuffer->UpdataDepthBuffer(pos.x, pos.y, z);//更新深度缓存
+							if (DepthMode == true)
+							{
+								m_backBuffer->UpdataFrameBuffer(pos.x, pos.y, vec4{ z,z,z,1 });//ColorBuffer绘制深度信息
+							}
+							if (DepthMode == false)//ColorBuffer绘制颜色信息
+							{
+								vec3 col = PixelinTriangleColor2d(vec2{ v1.x,v1.y }, vec2{ v2.x,v2.y }, vec2{ v3.x,v3.y }, i, j);
+								m_backBuffer->UpdataFrameBuffer(pos.x, pos.y, vec4{ col.x,col.y,col.z,1 });//更新颜色缓存	
+							}
 						}
-					} 
+					}
+					//vec4 FragmentShader();//【像素着色器】 
 				}
-				
-				if (DepthMode==false)
-				{
-					m_backBuffer->UpdataFrameBuffer(pos.x, pos.y, vec4{ 0.3,0.4,0.2,1 });
-					//m_backBuffer->UpdataFrameBuffer(pos.x, pos.y, vec4{ col.x,col.y,col.z,1 });//更新颜色缓存	
-				}
-				//vec4 FragmentShader();//【像素着色器】 
 			}
+			
 		}
 	}
 }
@@ -312,6 +317,31 @@ vec3 Pipeline::PixelinTriangleColor2d(vec2 p1, vec2 p2, vec2 p3, int x, int y)
 	outcol.z = std::abs(r1 * r.z + r2 * g.z + r3 * b.z);
 	return outcol;
 }
+
+void Pipeline::SetGeometry(Geometry* geo)
+{
+	//设置模型数据
+	appdata.POSITION= geo->position;
+	appdata.NORMAL= geo->normal;
+	appdata.TEXCOORD0= geo->texcoord;
+	appdata.P_INDEX= geo->p_index;
+	appdata.N_INDEX= geo->n_index;
+	appdata.UV_INDEX= geo->uv_index;
+	//设置矩阵
+	m_translate = geo->Translate;
+	m_rotate = geo->Rotate;
+	m_scale = geo->Scale;
+}
+
+void Pipeline::SetCamera(Camera* cam)
+{
+	m_cameranear = cam->cameranear;
+	m_camerafar = cam->camerafar;
+	m_fov = cam->fov;
+	m_cameraposition = cam->Translate;
+	m_camerarotate = cam->Rotate;
+}
+
 #pragma endregion
 
 

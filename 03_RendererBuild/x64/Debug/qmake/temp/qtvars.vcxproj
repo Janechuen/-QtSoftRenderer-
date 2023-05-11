@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\ADMINI~1\AppData\Local\Temp\emnnpyuv.efm;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtWidgets;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtGui;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtANGLE;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtCore;C:\Users\ADMINI~1\AppData\Local\Temp\emnnpyuv.efm;C:\VulkanSDK\1.3.239.0\include;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\ADMINI~1\AppData\Local\Temp\lqg232sa.2xl;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtWidgets;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtGui;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtANGLE;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtCore;C:\Users\ADMINI~1\AppData\Local\Temp\lqg232sa.2xl;C:\VulkanSDK\1.3.239.0\include;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>.\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
