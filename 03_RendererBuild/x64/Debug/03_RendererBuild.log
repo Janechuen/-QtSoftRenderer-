@@ -1,13 +1,36 @@
 ﻿  RenderRoute.cpp
 Camera.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
+Camera.obj : warning LNK4006: "struct vec<4> __cdecl C_MAX(struct vec<4>,double)" (?C_MAX@@YA?AU?$vec@$03@@U1@N@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
+Camera.obj : warning LNK4006: "double __cdecl C_MAX(double,double)" (?C_MAX@@YANNN@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
 FrameBuffer.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
+FrameBuffer.obj : warning LNK4006: "struct vec<4> __cdecl C_MAX(struct vec<4>,double)" (?C_MAX@@YA?AU?$vec@$03@@U1@N@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
+FrameBuffer.obj : warning LNK4006: "double __cdecl C_MAX(double,double)" (?C_MAX@@YANNN@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
 Geometry.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
+Geometry.obj : warning LNK4006: "struct vec<4> __cdecl C_MAX(struct vec<4>,double)" (?C_MAX@@YA?AU?$vec@$03@@U1@N@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
+Geometry.obj : warning LNK4006: "double __cdecl C_MAX(double,double)" (?C_MAX@@YANNN@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
 Pipeline.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
+Pipeline.obj : warning LNK4006: "struct vec<4> __cdecl C_MAX(struct vec<4>,double)" (?C_MAX@@YA?AU?$vec@$03@@U1@N@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
+Pipeline.obj : warning LNK4006: "double __cdecl C_MAX(double,double)" (?C_MAX@@YANNN@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
 RenderRoute.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
+RenderRoute.obj : warning LNK4006: "struct vec<4> __cdecl C_MAX(struct vec<4>,double)" (?C_MAX@@YA?AU?$vec@$03@@U1@N@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
+RenderRoute.obj : warning LNK4006: "double __cdecl C_MAX(double,double)" (?C_MAX@@YANNN@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
 Shader.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
+Shader.obj : warning LNK4006: "struct vec<4> __cdecl C_MAX(struct vec<4>,double)" (?C_MAX@@YA?AU?$vec@$03@@U1@N@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
+Shader.obj : warning LNK4006: "double __cdecl C_MAX(double,double)" (?C_MAX@@YANNN@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
+Texture.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
+Texture.obj : warning LNK4006: "struct vec<4> __cdecl C_MAX(struct vec<4>,double)" (?C_MAX@@YA?AU?$vec@$03@@U1@N@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
+Texture.obj : warning LNK4006: "double __cdecl C_MAX(double,double)" (?C_MAX@@YANNN@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
 Renderer.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
+Renderer.obj : warning LNK4006: "struct vec<4> __cdecl C_MAX(struct vec<4>,double)" (?C_MAX@@YA?AU?$vec@$03@@U1@N@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
+Renderer.obj : warning LNK4006: "double __cdecl C_MAX(double,double)" (?C_MAX@@YANNN@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
 main.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
+main.obj : warning LNK4006: "struct vec<4> __cdecl C_MAX(struct vec<4>,double)" (?C_MAX@@YA?AU?$vec@$03@@U1@N@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
+main.obj : warning LNK4006: "double __cdecl C_MAX(double,double)" (?C_MAX@@YANNN@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
 moc_Renderer.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
+moc_Renderer.obj : warning LNK4006: "struct vec<4> __cdecl C_MAX(struct vec<4>,double)" (?C_MAX@@YA?AU?$vec@$03@@U1@N@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
+moc_Renderer.obj : warning LNK4006: "double __cdecl C_MAX(double,double)" (?C_MAX@@YANNN@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
 moc_RenderRoute.obj : warning LNK4006: "double __cdecl FF_time(void)" (?FF_time@@YANXZ) 已在 Mesh.obj 中定义；已忽略第二个定义
+moc_RenderRoute.obj : warning LNK4006: "struct vec<4> __cdecl C_MAX(struct vec<4>,double)" (?C_MAX@@YA?AU?$vec@$03@@U1@N@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
+moc_RenderRoute.obj : warning LNK4006: "double __cdecl C_MAX(double,double)" (?C_MAX@@YANNN@Z) 已在 Mesh.obj 中定义；已忽略第二个定义
 D:\z_Work\-QtSoftRenderer-\x64\Debug\03_RendererBuild.exe : warning LNK4088: 因 /FORCE 选项生成了映像；映像可能不能运行
   03_RendererBuild.vcxproj -> D:\z_Work\-QtSoftRenderer-\x64\Debug\03_RendererBuild.exe

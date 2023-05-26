@@ -1,0 +1,74 @@
+﻿  Mesh.cpp
+  Pipeline.cpp
+  RenderRoute.cpp
+  Shader.cpp
+  Renderer.cpp
+  main.cpp
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.h(14,1): error C2011: “Mesh”:“class”类型重定义 (编译源文件 Src\Mesh\Mesh.cpp)
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.h(13): message : 参见“Mesh”的声明 (编译源文件 Src\Mesh\Mesh.cpp)
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(4,13): error C2027: 使用了未定义类型“Mesh”
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.h(13): message : 参见“Mesh”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(6,2): error C2065: “vertices”: 未声明的标识符
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(6,16): error C2027: 使用了未定义类型“Mesh”
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.h(13): message : 参见“Mesh”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(7,2): error C2065: “index”: 未声明的标识符
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(7,13): error C2027: 使用了未定义类型“Mesh”
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.h(13): message : 参见“Mesh”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(8,10): error C2355: “this”: 只能在非静态成员函数或非静态数据成员初始值设定项的内部引用
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(11,12): error C2027: 使用了未定义类型“Mesh”
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.h(13): message : 参见“Mesh”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(13,2): error C2065: “vertices”: 未声明的标识符
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(14,7): error C2065: “vertices”: 未声明的标识符
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(17,12): error C2027: 使用了未定义类型“Mesh”
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.h(13): message : 参见“Mesh”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(19,2): error C2065: “index”: 未声明的标识符
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(20,7): error C2065: “index”: 未声明的标识符
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(45,12): error C2027: 使用了未定义类型“Mesh”
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.h(13): message : 参见“Mesh”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(62,4): error C2065: “position”: 未声明的标识符
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(70,4): error C2065: “normal”: 未声明的标识符
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(79,4): error C2065: “texcoord”: 未声明的标识符
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(93,5): error C2065: “p_index”: 未声明的标识符
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(94,5): error C2065: “n_index”: 未声明的标识符
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\Mesh.cpp(95,5): error C2065: “uv_index”: 未声明的标识符
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(46,13): error C2039: "view_position": 不是 "V2F" 的成员
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh\V2F.h(7): message : 参见“V2F”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(185,17): error C2039: "InitDepthBuffer": 不是 "FrameBuffer" 的成员
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Render\FrameBuffer.h(4): message : 参见“FrameBuffer”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(246,13): warning C4838: 从“int”转换到“double”需要收缩转换
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(246,15): warning C4838: 从“int”转换到“double”需要收缩转换
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(283,19): warning C4838: 从“int”转换到“double”需要收缩转换
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(283,21): warning C4838: 从“int”转换到“double”需要收缩转换
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(291,30): error C2039: "GetDepthBuffer": 不是 "FrameBuffer" 的成员
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Render\FrameBuffer.h(4): message : 参见“FrameBuffer”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(293,23): error C2039: "UpdataDepthBuffer": 不是 "FrameBuffer" 的成员
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Render\FrameBuffer.h(4): message : 参见“FrameBuffer”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(309,52): error C2660: “Shader::fragmentShader”: 函数不接受 2 个参数
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader\Shader.h(13,15): message : 参见“Shader::fragmentShader”的声明 (编译源文件 Src\Render\Pipeline.cpp)
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(342,19): warning C4838: 从“int”转换到“double”需要收缩转换
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(342,21): warning C4838: 从“int”转换到“double”需要收缩转换
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(351,30): error C2039: "GetDepthBuffer": 不是 "FrameBuffer" 的成员
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Render\FrameBuffer.h(4): message : 参见“FrameBuffer”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(353,23): error C2039: "UpdataDepthBuffer": 不是 "FrameBuffer" 的成员
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Render\FrameBuffer.h(4): message : 参见“FrameBuffer”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(385,13): warning C4838: 从“int”转换到“double”需要收缩转换
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\Pipeline.cpp(385,15): warning C4838: 从“int”转换到“double”需要收缩转换
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\RenderRoute.cpp(51): error C2259: “Shader”: 无法实例化抽象类
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader\Shader.h(7): message : 参见“Shader”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\RenderRoute.cpp(51): message : 由于下列成员:
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\RenderRoute.cpp(51): message : “V2F Shader::vertexShader(const Vertex &)”: 是抽象的
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader\Shader.h(12): message : 参见“Shader::vertexShader”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\RenderRoute.cpp(51): message : “vec4 Shader::fragmentShader(const V2F &)”: 是抽象的
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader\Shader.h(13): message : 参见“Shader::fragmentShader”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\RenderRoute.cpp(51,31): error C2259: “Shader”: 无法实例化抽象类
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader\Shader.h(7): message : 参见“Shader”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\RenderRoute.cpp(51,31): message : 由于下列成员:
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\RenderRoute.cpp(51,31): message : “V2F Shader::vertexShader(const Vertex &)”: 是抽象的
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader\Shader.h(12): message : 参见“Shader::vertexShader”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\RenderRoute.cpp(51,31): message : “vec4 Shader::fragmentShader(const V2F &)”: 是抽象的
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader\Shader.h(13): message : 参见“Shader::fragmentShader”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\RenderRoute.cpp(54,12): error C2039: "SetTexture": 不是 "Shader" 的成员
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader\Shader.h(7): message : 参见“Shader”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\RenderRoute.cpp(54,44): error C2039: "DiffuseTex": 不是 "Shader" 的成员
+A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader\Shader.h(7): message : 参见“Shader”的声明
+D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render\RenderRoute.cpp(54,54): error C2065: “DiffuseTex”: 未声明的标识符

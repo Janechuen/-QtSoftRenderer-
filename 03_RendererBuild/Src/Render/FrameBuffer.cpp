@@ -51,6 +51,7 @@ void FrameBuffer::UpdataFrameBuffer(int x , int y ,vec4 vec)
 	cl[1] = static_cast<unsigned char>(vec.y * 255);
 	cl[2] = static_cast<unsigned char>(vec.z * 255);
 	cl[3] = static_cast<unsigned char>(vec.w * 255);
+
 	for (int k = 0; k < 4; k++) {
 		if (x>=Width||y>=Height)
 		{

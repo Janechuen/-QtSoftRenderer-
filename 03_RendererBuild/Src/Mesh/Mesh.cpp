@@ -66,7 +66,7 @@ void Mesh::LoadMesh(const std::string filename)
 		{
 			iss >> trash >> trash;//将vn放入垃圾桶 以便获取正确数据
 			vec3 n;
-			for (int i; i < 3; i++)iss >> n[i];
+			for (int i = 0; i < 3; i++)iss >> n[i];
 			normal.push_back(n);
 
 		}

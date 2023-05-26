@@ -15,6 +15,7 @@ void Geometry::SetMesh(std::string meshfile, vec3 t, vec3 r, vec3 s)
 	Rotate = r;
 	Scale = s;
 }
+
 void Geometry::SetRotate(double f)
 {
 	Rotate.x = (Rotate.x + f);

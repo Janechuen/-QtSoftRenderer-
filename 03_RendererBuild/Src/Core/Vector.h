@@ -14,11 +14,19 @@ template<int n > struct vec {
 };
 
 //ÏòÁ¿µÄ¼Ó¼õ³Ë³ı
-template<int n> double operator*(const vec<n>& j, const vec<n>& k)//ÏòÁ¿ ÏòÁ¿³Ë·¨(Dot Projected)
+template<int n> double operator*(const vec<n>& j, const vec<n>& k)//ÏòÁ¿ºÍÏòÁ¿ µã»ı(Dot Projected)
 {
 	double temp = 0;
 	for (int i = n; i--; temp += j[i] * k[i]);
 	return temp;
+}
+
+
+template<int n> vec<n> operator*(const vec<n>& lhs, const double& rhs) //ÏòÁ¿ºÍ±êÁ¿ ³Ë·¨
+{
+	vec<n> ret = lhs;
+	for (int i = n; i--; ret[i] *= rhs);
+	return ret;
 }
 
 template<int n> vec<n> operator+(const vec<n>& j, const vec<n>& k)//ÏòÁ¿ ÏòÁ¿¼Ó·¨
@@ -35,12 +43,6 @@ template<int n> vec<n> operator-(const vec<n>& j, const vec<n>& k)//ÏòÁ¿ ÏòÁ¿œp·
 	return temp;
 }
 
-template<int n> vec<n> operator*(const vec<n>& lhs, const double& rhs) //ÏòÁ¿ †ÎÎ»³Ë·¨
-{
-	vec<n> ret = lhs;
-	for (int i = n; i--; ret[i] *= rhs);
-	return ret;
-}
 
 template<int n> vec<n> operator/(const vec<n>& j, const double& k)//ÏòÁ¿ †ÎÎ»³ı·¨
 {

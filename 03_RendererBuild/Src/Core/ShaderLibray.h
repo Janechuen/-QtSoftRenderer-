@@ -5,7 +5,7 @@
 //#include <sstream>
 //#include <iomanip>
 #include <chrono>
-
+#include "Core.h"
 
 //std::string GetTimeStr()
 //{
@@ -41,5 +41,50 @@ double FF_time()
 	return seconds_double;
 
 }
+//限制小于0的变量
+vec4 C_MAX(vec4 in,double f)
+{
+	vec4 out;
+	for (int i=0; i<4;i++)
+	{
+		if (in[i] <0)
+		{
+			out[i] = 0;
+		}
+		else
+		{
+			out[i] = in[i];
+		}
+		
+	}
+	return out;
+}
+double C_MAX(double in, double f)
+{
+	double out;
+	
+		if (in < 0)
+		{
+			out = 0;
+		}
+		else
+		{
+			out = in;
+		}
+	return out;
+}
+//向量乘法
+template<int n> vec<n> C_Mul(const vec<n>& j, const vec<n>& k)
+{
+	vec<n> ret = j;
+	for (int i = n; i--; ret[i] *= k[i]);
+	return ret;
+}
 
-
+//点积 求两个向量间的夹角
+template<int n> double dot(const vec<n>& j, const vec<n>& k)//向量 向量乘法(Dot Projected)
+{
+	double temp = 0;
+	for (int i = n; i--; temp += j[i] * k[i]);
+	return temp;
+}

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Mesh.h"
 #include "Core.h"
+#include "Texture.h"
 #pragma once
 class Geometry
 {
@@ -17,6 +18,10 @@ public:
 	std::vector<int>p_index;
 	std::vector<int>n_index;
 	std::vector<int>uv_index;
+
+	//Ä£ÐÍÎÆÀí 
+	TGAColor D;
+	TGAColor N;
 
 	Geometry() {}
 	~Geometry() {}

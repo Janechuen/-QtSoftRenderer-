@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
 <Qt_DEFINES_>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB</Qt_DEFINES_>
-<Qt_INCLUDEPATH_>C:\Users\ADMINI~1\AppData\Local\Temp\lqg232sa.2xl;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtWidgets;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtGui;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtANGLE;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtCore;C:\Users\ADMINI~1\AppData\Local\Temp\lqg232sa.2xl;C:\VulkanSDK\1.3.239.0\include;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\mkspecs\win32-msvc</Qt_INCLUDEPATH_>
+<Qt_INCLUDEPATH_>C:\Users\ADMINI~1\AppData\Local\Temp\g4pd3bjo.pm5;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtWidgets;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtGui;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtANGLE;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\include\QtCore;C:\Users\ADMINI~1\AppData\Local\Temp\g4pd3bjo.pm5;C:\VulkanSDK\1.3.239.0\include;A:\CY_Library\QT\QT5,15.2\5.15.2\msvc2019_64\mkspecs\win32-msvc</Qt_INCLUDEPATH_>
 <Qt_STDCPP_></Qt_STDCPP_>
 <Qt_RUNTIME_>MultiThreadedDebugDLL</Qt_RUNTIME_>
 <Qt_CL_OPTIONS_>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus</Qt_CL_OPTIONS_>

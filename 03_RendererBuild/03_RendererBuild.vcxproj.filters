@@ -123,6 +123,9 @@
     <ClInclude Include="Src\Render\Geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Light\DirectionLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Src\Render\RenderRoute.h">

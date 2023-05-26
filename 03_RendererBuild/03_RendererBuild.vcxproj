@@ -64,7 +64,7 @@
       <AdditionalOptions> /FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Shader;D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render;D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh;D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Light;D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Shader;D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Render;D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Mesh;D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Core;D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Texture;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -72,7 +72,7 @@
       <StackReserveSize>104857600</StackReserveSize>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Render;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\z_Work\-QtSoftRenderer-\03_RendererBuild\Src\Texture;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Shader;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Render;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Mesh;A:\PROJECT_WORKS\VS_PROJECT\QTSoftRenderer\-QtSoftRenderer-\03_RendererBuild\Src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -122,6 +122,7 @@
     <ClInclude Include="Src\Core\Core.h" />
     <ClInclude Include="Src\Core\Matrix.h" />
     <ClInclude Include="Src\Core\Vector.h" />
+    <ClInclude Include="Src\Light\DirectionLight.h" />
     <ClInclude Include="Src\Mesh\Appdata.h" />
     <ClInclude Include="Src\Mesh\Mesh.h" />
     <ClInclude Include="Src\Mesh\V2F.h" />

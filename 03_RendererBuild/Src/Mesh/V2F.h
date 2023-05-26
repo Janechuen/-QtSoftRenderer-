@@ -15,6 +15,12 @@ public:
 	std::vector <vec4> position;
 	std::vector <vec4> screen_position;
 	std::vector <vec4> view_position;
+	std::vector <vec4> world_position;
+	std::vector <vec2> uv;
+	std::vector <int> uv_index;
+
+	std::vector <vec4> world_normal;
+
 	//double oneDivZ;
 
 	//V2F() {}
