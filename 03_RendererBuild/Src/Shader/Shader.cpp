@@ -20,7 +20,7 @@ vec4 Shader::fragmentShader(const V2F& in,vec2 uv)
 	return Color;
 }
 
-vec4 Shader::fragmentShader(vec4 worldposition, vec4 worldnormal, vec2 uv, vec4 lightposition, vec4 lightcolor)
+vec4 Shader::fragmentShader(vec4 worldposition, vec4 worldnormal, vec2 uv, vec4 lightposition, vec4 lightcolor, mat<4, 4> TBN)
 {
 	//【纹理采样】
 	TGAColor d = sample2D(diffusemap, uv);
@@ -30,16 +30,28 @@ vec4 Shader::fragmentShader(vec4 worldposition, vec4 worldnormal, vec2 uv, vec4 
 	tex01.z = d.bgra[0];
 	tex01.w = 1;
 	tex01 = tex01 / 255;
+	TGAColor n = sample2D(normalmap, uv);
+	vec4 tex02;
+	tex02.x = n.bgra[2];
+	tex02.y = n.bgra[1];
+	tex02.z = n.bgra[0];
+	tex02.w = 0;
+	tex02 = tex02 / 255;
+	tex02.x = tex02.x * 2 - 1;
+	tex02.y = tex02.y * 2 - 1;
+	tex02.z = tex02.z * 2 - 1;
+	vec4 nor = TBN * tex02;
 	//【光照模型】
 	vec4 lightdir = lightposition.normalized();
 	lightdir.normalized();
-	double nol = dot(worldnormal, lightdir);
+	double nol = dot(nor.normalized(), lightdir);
 	nol = C_MAX(nol, 0);
 	//vec4 col = vec4{n,n,n,n};
 	//vec4 col = lightcolor;
 	vec4 col;
 	col = C_Mul(lightcolor,tex01) ;
 	col = col * nol;
+	//col = nor;
 	return col;
 }
 

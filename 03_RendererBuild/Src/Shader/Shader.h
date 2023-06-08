@@ -13,7 +13,7 @@ public:
 	~Shader() {}
 	V2F vertexShader(const Vertex& in);//顶点Shader
 	vec4 fragmentShader(const V2F& in, vec2 uv);//像素Shader
-	vec4 fragmentShader(vec4 worldposition, vec4 worldnormal, vec2 uv, vec4 lightposition, vec4 lightcolor);//像素Shader
+	vec4 fragmentShader(vec4 worldposition, vec4 worldnormal, vec2 uv, vec4 lightposition, vec4 lightcolor, mat<4, 4> TBN);//像素Shader
 	enum TextureMode { DiffuseTex, NormalTex };//纹理模式
 	void SetTexture(std::string path, TextureMode mode);//设置纹理
 	TGAColor sample2D(const TGAImage img, vec2& uvf);//采样纹理

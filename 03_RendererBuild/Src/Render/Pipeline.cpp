@@ -63,8 +63,10 @@ V2F Pipeline::VS(Appdata a)
 		mat<4, 4>TransformMatrix = GetTransformMatrix();
 		//【法线 Normal】
 		VSOutput_Nor = vec4{a.NORMAL[i].x,a.NORMAL[i].y,a.NORMAL[i].z,0.0};//本地空间顶点法线
-		VSOutput_Nor = TransformMatrix * VSOutput_Nor;//世界空间顶点法线变换
+		//VSOutput_Nor = TransformMatrix.invert().transpose() * VSOutput_Nor;//世界空间顶点法线变换 这里的矩阵是逆转置矩阵 防止出现缩放导致法线不准确的问题
+		VSOutput_Nor = TransformMatrix * VSOutput_Nor;
 		VSOutput_Nor = VSOutput_Nor.normalized();
+
 		//这步操作只是通过屏幕检查数值是否正确
 		//VSOutput_Nor.x = VSOutput_Nor.x * 100;
 		//VSOutput_Nor.y = VSOutput_Nor.y * 100;
@@ -106,11 +108,25 @@ void Pipeline::FS_Fill(V2F in, Appdata a)
 		vec4 normmala = vec4{ in.world_normal[a.N_INDEX[i]] };
 		vec4 normmalb = vec4{ in.world_normal[a.N_INDEX[i+1]] };
 		vec4 normmalc = vec4{ in.world_normal[a.N_INDEX[i+2]] };
+	
+		vec4 t = C_ComputerT(worldposa, worldposb, worldposc, uva, uvb, uvc);//计算平面切线
+		//将切线正交化
+		vec4 tangenta = t - normmala * (t * normmala);
+		tangenta = tangenta.normalized();
+		vec4 tangentb = t - normmalb * (t * normmalb);
+		tangentb = tangentb.normalized();
+		vec4 tangentc = t - normmalc * (t * normmalc);
+		tangentc = tangentc.normalized();
+		//将法线和切线重新组合新正交坐标系
+		vec4 bitangenta = cross_4(normmala, tangenta);
+		vec4 bitangentb = cross_4(normmalb, tangentb);
+		vec4 bitangentc = cross_4(normmalc, tangentc);
+		
 		//背面剔除 检查三角面是否是反的 如果是那么不参与大奥光栅化和fragment中
 		if (BackfaceCulling(pointa, pointb, pointc))
 		{
 			//Rasterization2d(pointa, pointb, pointc,uva,uvb,uvc,in, false);
-			Rasterization3dFill(pointa, pointb, pointc, uva, uvb, uvc, normmala, normmalb, normmalc, worldposa, worldposb, worldposc ,in, false);
+			Rasterization3dFill(pointa, pointb, pointc, uva, uvb, uvc, normmala, normmalb, normmalc, worldposa, worldposb, worldposc, tangenta, tangentb, tangentc, bitangenta, bitangentb, bitangentc,in, false);
 		}
 	}
 }
@@ -142,7 +158,7 @@ bool Pipeline::BackfaceCulling(vec4 v1, vec4 v2, vec4 v3)
 		vec2 p3 = vec2{ v3.x,v3.y };
 		vec2 AB = p2 - p1; vec2 BC = p3 - p2; vec2 CA = p1 - p3;
 		int r1 = cross_2(AB, BC), r2 = cross_2(BC, CA), r3 = cross_2(CA, AB);
-		if (r1 > 0 && r2 > 0 && r3 > 1)return false; //叉积特性 同方向视为在三角形范围内
+		if (r1 > 0 && r2 > 0 && r3 > 0)return false; //叉积特性 同方向视为在三角形范围内
 		if (r1 < 0 & r2 < 0 && r3 < 0)return true;
 }
 
@@ -329,7 +345,7 @@ void Pipeline::Rasterization2d(vec4 v1,vec4 v2,vec4 v3,vec2 uv1,vec2 uv2,vec2 uv
 	}
 }
 
-void Pipeline::Rasterization3dFill(vec4 v1, vec4 v2, vec4 v3, vec2 uv1, vec2 uv2, vec2 uv3, vec4 n1, vec4 n2, vec4 n3, vec4 w1 , vec4 w2, vec4 w3, V2F in, bool DepthMode)
+void Pipeline::Rasterization3dFill(vec4 v1, vec4 v2, vec4 v3, vec2 uv1, vec2 uv2, vec2 uv3, vec4 n1, vec4 n2, vec4 n3, vec4 w1 , vec4 w2, vec4 w3, vec4 t1, vec4 t2, vec4 t3, vec4 b1, vec4 b2, vec4 b3, V2F in, bool DepthMode)
 {
 	int bondscale = 1;//寻找三角形边框的最小范围 bondscale 放大边框 解决有的时候垂直线段即是边界导致边线被剔除导致渲染错误的情况出现
 	int minx = 0, miny = 0, maxx = 0, maxy = 0, tempx = 0, tempy = 0;
@@ -357,7 +373,11 @@ void Pipeline::Rasterization3dFill(vec4 v1, vec4 v2, vec4 v3, vec2 uv1, vec2 uv2
 						//【光栅化插值三角形内部所占片元数据】
 						vec2 uv = vec2{ uv1 * clip.x + uv2 * clip.y + uv3 * clip.z };//UV映射插值
 						vec4 normal = vec4{ n1 * barycentricz.x + n2 * barycentricz.y + n3* barycentricz.z };
+						vec4 tangent = vec4{ t1 * barycentricz.x + t2 * barycentricz.y + t3 * barycentricz.z };
+						vec4 bitangent = vec4{ b1 * barycentricz.x + b2 * barycentricz.y + b3 * barycentricz.z };
+						mat<4, 4> TBN = { tangent,bitangent,normal ,vec4{0,0,0,1} };
 						vec4 wpos = vec4{ w1 * barycentricz.x + w2 * barycentricz.y + w3 * barycentricz.z };
+						
 						double z = abs(1 - (-v1.z / Zdistance)) * barycentricz.x + abs(1 - (-v2.z / Zdistance)) * barycentricz.y + abs(1 - (-v3.z / Zdistance)) * barycentricz.z;//三角重心重心插值深度
 						//【深度写入操作 Fragment Shader 着色】
 						//像素和片元的区别：像素是电脑屏幕上的一个点只负责记录这一个点的颜色 只可唯一 而在这个点可以同时存在多个片元 片元是多个三角形携带数据组成的 多个片元根据深度决定谁是最后显示在像素上(当然透明)
@@ -377,7 +397,7 @@ void Pipeline::Rasterization3dFill(vec4 v1, vec4 v2, vec4 v3, vec2 uv1, vec2 uv2
 								}
 								else
 								{
-									vec4 col = m_shader->fragmentShader(wpos,normal,uv,m_dirLightposition,m_dirlightColor);//【像素着色器】 
+									vec4 col = m_shader->fragmentShader(wpos,normal,uv,m_dirLightposition,m_dirlightColor,TBN);//【像素着色器】 
 									m_backBuffer->UpdataFrameBuffer(pos.x, pos.y, vec4{ col.x ,col.y ,col.z ,1  });//更新颜色缓存	
 									//【测试输出节点】
 									//m_backBuffer->UpdataFrameBuffer(pos.x, pos.y, vec4{ normal.x, normal.y, normal.z,1 });//测试世界空间顶点法线

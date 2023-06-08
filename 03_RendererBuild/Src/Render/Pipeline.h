@@ -126,7 +126,7 @@ public:
 	//uvbarycentricUV(vec2 p1, vec2 p2, vec2 p3, int x, int y);
 	void bresenham2d(vec4 from, vec4 to);//光栅化阶段-三角形遍历-bresenham 画线算法
 	void Rasterization2d(vec4 v1, vec4 v2, vec4 v3, vec2 uv1, vec2 uv2, vec2 uv3, V2F in, bool DepthMode);
-	void Rasterization3dFill(vec4 v1, vec4 v2, vec4 v3, vec2 uv1, vec2 uv2, vec2 uv3, vec4 n1, vec4 n2, vec4 n3, vec4 w1, vec4 w2, vec4 w3, V2F in, bool DepthMode);
+	void Rasterization3dFill(vec4 v1, vec4 v2, vec4 v3, vec2 uv1, vec2 uv2, vec2 uv3, vec4 n1, vec4 n2, vec4 n3, vec4 w1, vec4 w2, vec4 w3, vec4 t1, vec4 t2, vec4 t3, vec4 b1, vec4 b2, vec4 b3, V2F in, bool DepthMode);
 	vec3 PixelinTriangleColor2d(vec2 p1, vec2 p2, vec2 p3, int x, int y);
 #pragma endregion
 

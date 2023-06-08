@@ -104,3 +104,16 @@ template<int nrows, int ncols> std::ostream& operator<<(std::ostream& out, const
 	for (int i = 0; i < nrows; i++) out << m[i] << std::endl;
 	return out;
 }
+template<int n> struct dt {
+	static double det(const mat<n, n>& src) {
+		double ret = 0;
+		for (int i = n; i--; ret += src[0][i] * src.cofactor(0, i));
+		return ret;
+	}
+};
+
+template<> struct dt<1> {
+	static double det(const mat<1, 1>& src) {
+		return src[0][0];
+	}
+};

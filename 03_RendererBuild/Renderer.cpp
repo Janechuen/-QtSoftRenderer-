@@ -1,6 +1,5 @@
 #include "Renderer.h"
 #include <iostream>
-
 #include <string>
 #include <Core.h>
 
@@ -50,7 +49,7 @@ void Renderer::receiveFrame(unsigned char* data)
 	if (RenderWindow) delete RenderWindow;
 	//给RenderWindow赋值Qimage data即
 	RenderWindow = new QImage(data, width(), height(), QImage::Format_RGBA8888);
-	//调用paintEvent函数将 FrameBuffer画到窗口上
+	//QT的Update函数将调用paintEvent函数将 会将FrameBuffer画到窗口上
 	update();
 }
 

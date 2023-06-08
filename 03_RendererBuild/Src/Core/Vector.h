@@ -97,4 +97,5 @@ typedef vec<4> vec4;
 //二维向量叉积 cpp 实现
 double cross_2(const vec2& A, const vec2& B);
 //三维向量叉积 cpp 实现
-vec3 cross(const vec3& A, const vec3& B);
+vec3 cross(const vec3& A, const vec3& B); 
+vec4 cross_4(const vec4& A, const vec4& B);
